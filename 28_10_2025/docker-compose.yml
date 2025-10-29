@@ -1,0 +1,49 @@
+services:
+  loginfrontend:
+    build:
+      context: loginfrontend
+      dockerfile: Dockerfile
+    ports:
+      - 8501:5173
+    volumes:
+      - ./loginfrontend:/app
+      # copia il contenuto di loginfrontend dentro /app
+      - /app/node_modules
+    command:  npm run dev -- --host
+    # --host react è visto a livello globale così e non solo localhost
+
+  loginbackend:
+    build:
+      context: ./loginbackend
+      dockerfile: Dockerfile
+    ports:
+      - 8001:8000
+    volumes:
+      - ./loginbackend:/app
+    command: python app.py
+    depends_on:
+      - db
+  
+  prodottibackend:
+    build:
+      context: ./prodottibackend
+      dockerfile: Dockerfile
+    ports:
+      - 8002:8000
+    volumes:
+      - ./prodottibackend:/app
+    command: python app.py
+    depends_on:
+      - db
+
+  db:
+    image: mysql
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: database
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
