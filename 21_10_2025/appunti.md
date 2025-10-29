@@ -45,3 +45,6 @@ copio il filre requirements nella root dell'app
 le immagini le crea a livelli come matrioska
 per ottimizzare la costruzione delle immagini
 è meglio copiare i requirements e installarli
+--------------------------------------------------------------------------------
+
+: = mappatura memoria locale - memoria container

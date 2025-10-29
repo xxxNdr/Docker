@@ -12,3 +12,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     command: ['py', 'app.py']
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
